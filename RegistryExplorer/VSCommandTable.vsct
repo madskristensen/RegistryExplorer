@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+  <Include href="KnownImageIds.vsct"/>
+
+  <Commands package="guidRegistryEplorerPackage">
+    <Buttons>
+      <Button guid="guidRegistryEplorerPackageCmdSet" id="ShowRegistryExplorerId" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1"/>
+        <Icon guid="ImageCatalogGuid" id="Registry"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Visual Studio Hive Explorer</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidRegistryEplorerPackage" value="{f69ea5b6-7d1c-48e1-aa62-dfee8a21f1a6}" />
+
+    <GuidSymbol name="guidRegistryEplorerPackageCmdSet" value="{e55740b7-6c7f-4ff7-9235-4082c8fc3cde}">
+      <IDSymbol name="ShowRegistryExplorerId" value="0x0100" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
