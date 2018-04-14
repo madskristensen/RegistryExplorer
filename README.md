@@ -4,7 +4,7 @@
 
 **Requires Visual Studio 2017.6 and newer**
 
-This extension provides a tool window for looking at the Visual Studio registry hive.
+This extension provides a tool window for looking at the Visual Studio registry hive. It shows the registry from both the **UserRegistryRoot** and **ApplicationRegistryRoot** (_Config).
 
 ![Tool Window](art/window.png)
 
