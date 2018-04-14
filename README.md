@@ -1,6 +1,6 @@
 # Registry Explorer
 
-[![Build status](https://ci.appveyor.com/api/projects/status/98lp2282nvh9955r?svg=true)](https://ci.appveyor.com/project/madskristensen/optionssample)
+[![Build status](https://ci.appveyor.com/api/projects/status/0ul3t4y6ci95vyys?svg=true)](https://ci.appveyor.com/project/madskristensen/registryexplorer)
 
 **Requires Visual Studio 2017.6 and newer**
 
