@@ -68,7 +68,7 @@ namespace RegistryExplorer.ToolWindow
 
         private void PopulateNode(RegistryTreeItem item)
         {
-            if (item.HasItems)
+            if (item.HasItems || item.Key.SubKeyCount == 0)
                 return;
 
             using (Dispatcher.DisableProcessing())
