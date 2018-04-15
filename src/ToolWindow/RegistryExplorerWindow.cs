@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
 using RegistryExplorer.ToolWindow;
 
@@ -15,6 +17,7 @@ namespace RegistryExplorer
         public RegistryExplorerWindow(RegistryKey[] keys) : base()
         {
             Caption = Title;
+
             var elm = new RegistryExplorerControl(keys);
             Content = elm;
         }

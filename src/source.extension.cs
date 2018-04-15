@@ -9,7 +9,7 @@ namespace RegistryExplorer
     {
         public const string Id = "29464950-087c-4fb6-9fdd-bab0fb71d68f";
         public const string Name = "Registry Explorer";
-        public const string Description = @"Provides a tool window that shows the Visual Studio registry hive";
+        public const string Description = @"Provides a tool window that shows the Visual Studio registry hive. This is useful for developers writing extensions for Visual Studio. Requires Visual Studio 2017.6";
         public const string Language = "en-US";
         public const string Version = "1.0";
         public const string Author = "Mads Kristensen";
