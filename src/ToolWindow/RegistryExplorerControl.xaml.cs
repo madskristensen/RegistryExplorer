@@ -82,8 +82,7 @@ namespace RegistryExplorer.ToolWindow
 
         private void OnLoaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (tree.HasItems)
-                return;
+            tree.Items.Clear();
 
             foreach (RegistryKey key in _keys)
             {

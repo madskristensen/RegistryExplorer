@@ -10,6 +10,8 @@ This extension provides a tool window for looking at the Visual Studio registry 
 
 Open the tool window from the top menu **View -> Other Windows -> Registry Hive Explorer**.
 
+To refresh any node im the tree, simply right-click it and hit the **Refresh** button.
+
 ## Contribute
 Check out the [contribution guidelines](.github/CONTRIBUTING.md)
 if you want to contribute to this project.
