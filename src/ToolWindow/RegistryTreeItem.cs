@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -13,7 +14,8 @@ namespace RegistryExplorer.ToolWindow
         public RegistryTreeItem(RegistryKey key, bool populateImmediateChildren = false)
         {
             Key = key;
-            
+            Header = Path.GetFileName(key.Name);
+
             if (populateImmediateChildren)
             {
                 PopulateNode(this);
@@ -21,7 +23,6 @@ namespace RegistryExplorer.ToolWindow
 
             SetResourceReference(TextElement.ForegroundProperty, EnvironmentColors.BrandedUITitleBrushKey);
         }
-
 
         public static event EventHandler<RegistryTreeItem> ItemSelected;
 
@@ -70,16 +71,15 @@ namespace RegistryExplorer.ToolWindow
             if (item.HasItems)
                 return;
 
-            foreach (string name in item.Key.GetSubKeyNames())
+            using (Dispatcher.DisableProcessing())
             {
-                RegistryKey subkey = item.Key.OpenSubKey(name, false);
-
-                var child = new RegistryTreeItem(subkey)
+                foreach (string name in item.Key.GetSubKeyNames())
                 {
-                    Header = name,
-                };
+                    RegistryKey subkey = item.Key.OpenSubKey(name, false);
+                    var child = new RegistryTreeItem(subkey);
 
-                item.Items.Add(child);
+                    item.Items.Add(child);
+                }
             }
         }
     }

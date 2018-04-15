@@ -9,9 +9,9 @@ using Task = System.Threading.Tasks.Task;
 
 namespace RegistryExplorer
 {
+    [Guid(PackageGuids.guidRegistryEplorerPackageString)] 
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
-    [Guid(PackageGuids.guidRegistryEplorerPackageString)]
     [ProvideToolWindow(typeof(RegistryExplorerWindow), Style = VsDockStyle.Tabbed, Window = "DocumentWell", Orientation = ToolWindowOrientation.none)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class RegistryEplorerPackage : AsyncPackage
