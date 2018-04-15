@@ -12,7 +12,7 @@
         <Icon guid="ImageCatalogGuid" id="Registry"/>
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
-          <ButtonText>Visual Studio Hive Explorer</ButtonText>
+          <ButtonText>Registry Hive Explorer</ButtonText>
         </Strings>
       </Button>
     </Buttons>

@@ -10,7 +10,7 @@ namespace RegistryExplorer
     public class RegistryExplorerWindow : ToolWindowPane
     {
         public const string WindowGuidString = "2f8202f6-41f5-4436-8652-8618fd0e12b1";
-        public const string Title = "Visual Studio Hive Explorer";
+        public const string Title = "Registry Hive Explorer";
 
         public RegistryExplorerWindow(RegistryKey[] keys) : base()
         {

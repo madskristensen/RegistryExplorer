@@ -26,13 +26,13 @@ namespace RegistryExplorer.ToolWindow
             if (tree.SelectedItem is RegistryTreeItem selected)
             {
                 selected.Refresh(selected);
-                UpdateDetailsGridAsync(selected);
+                UpdateDetailsGridAsync(selected).ConfigureAwait(false);
             }
         }
 
         private void RegistryTreeItem_ItemSelected(object sender, RegistryTreeItem e)
         {
-            UpdateDetailsGridAsync(e);
+            UpdateDetailsGridAsync(e).ConfigureAwait(false);
         }
 
         private async Task UpdateDetailsGridAsync(RegistryTreeItem item)
@@ -76,7 +76,7 @@ namespace RegistryExplorer.ToolWindow
                 values.Items.Add(new { Name = "(Default)", Type = RegistryValueKind.String, Value = "(value not set)" });
             }
         }
-
+        
         private void RegistryExplorerControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             if (tree.HasItems)

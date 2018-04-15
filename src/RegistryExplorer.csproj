@@ -234,6 +234,9 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
+    <Analyzer Include="..\packages\AsyncUsageAnalyzers.1.0.0-alpha003\analyzers\dotnet\AsyncUsageAnalyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.VisualStudio.SDK.Analyzers.15.6.56-beta\analyzers\cs\Microsoft.VisualStudio.SDK.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\Microsoft.VisualStudio.SDK.Analyzers.15.6.56-beta\analyzers\cs\Microsoft.VisualStudio.SDK.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.6.46\analyzers\cs\Microsoft.VisualStudio.Threading.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>

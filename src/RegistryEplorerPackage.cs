@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.Win32;
 using Task = System.Threading.Tasks.Task;
 
 namespace RegistryExplorer
@@ -43,7 +44,7 @@ namespace RegistryExplorer
 
         protected override Task<object> InitializeToolWindowAsync(Type toolWindowType, int id, CancellationToken cancellationToken)
         {
-            var keys = new[] { UserRegistryRoot, ApplicationRegistryRoot };
+            RegistryKey[] keys = new[] { UserRegistryRoot, ApplicationRegistryRoot };
             return Task.FromResult<object>(keys);
         }
     }

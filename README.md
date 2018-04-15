@@ -2,13 +2,13 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/0ul3t4y6ci95vyys?svg=true)](https://ci.appveyor.com/project/madskristensen/registryexplorer)
 
-**Requires Visual Studio 2017.6 and newer**
+**Requires Visual Studio 2017.6 or newer**
 
 This extension provides a tool window for looking at the Visual Studio registry hive. It shows the registry from both the **UserRegistryRoot** and **ApplicationRegistryRoot** (_Config).
 
 ![Tool Window](art/window.png)
 
-Open the tool window from the top menu **View -> Other Windows -> Visual Studio Hive Explorer**.
+Open the tool window from the top menu **View -> Other Windows -> Registry Hive Explorer**.
 
 ## Contribute
 Check out the [contribution guidelines](.github/CONTRIBUTING.md)

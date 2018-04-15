@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.Win32;
 
@@ -12,32 +13,19 @@ namespace RegistryExplorer.ToolWindow
         public RegistryTreeItem(RegistryKey key, bool populateImmediateChildren = false)
         {
             Key = key;
-
-
-            Expanded += OnExpanded;
-
+            
             if (populateImmediateChildren)
             {
                 PopulateNode(this);
             }
 
-            MouseRightButtonUp += RegistryTreeItem_MouseRightButtonUp;
             SetResourceReference(TextElement.ForegroundProperty, EnvironmentColors.BrandedUITitleBrushKey);
         }
 
-        protected override void OnUnselected(RoutedEventArgs e)
-        {
-            SetResourceReference(TextElement.ForegroundProperty, EnvironmentColors.BrandedUITitleBrushKey);
-        }
 
-        private void RegistryTreeItem_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
+        public static event EventHandler<RegistryTreeItem> ItemSelected;
 
-            if (e.Source is RegistryTreeItem item && !item.IsSelected)
-            {
-                item.IsSelected = true;
-            }
-        }
+        public RegistryKey Key { get; }
 
         protected override void OnSelected(RoutedEventArgs e)
         {
@@ -48,17 +36,25 @@ namespace RegistryExplorer.ToolWindow
             }
         }
 
-        public static event EventHandler<RegistryTreeItem> ItemSelected;
-
-        public RegistryKey Key { get; }
-
-        private void OnExpanded(object sender, System.Windows.RoutedEventArgs e)
+        protected override void OnUnselected(RoutedEventArgs e)
         {
-            var item = (RegistryTreeItem)sender;
+            SetResourceReference(TextElement.ForegroundProperty, EnvironmentColors.BrandedUITitleBrushKey);
+        }
+
+        protected override void OnExpanded(RoutedEventArgs e)
+        {
+            var item = (RegistryTreeItem)e.Source;
 
             foreach (RegistryTreeItem child in item.Items)
             {
                 PopulateNode(child);
+            }
+        }
+        protected override void OnMouseRightButtonUp(MouseButtonEventArgs e)
+        {
+            if (e.Source is RegistryTreeItem item && !item.IsSelected)
+            {
+                item.IsSelected = true;
             }
         }
 
@@ -76,7 +72,8 @@ namespace RegistryExplorer.ToolWindow
 
             foreach (string name in item.Key.GetSubKeyNames())
             {
-                RegistryKey subkey = item.Key.OpenSubKey(name);
+                RegistryKey subkey = item.Key.OpenSubKey(name, false);
+
                 var child = new RegistryTreeItem(subkey)
                 {
                     Header = name,
