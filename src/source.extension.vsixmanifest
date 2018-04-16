@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="29464950-087c-4fb6-9fdd-bab0fb71d68f" Version="1.0" Language="en-US" Publisher="Mads Kristensen" />
+        <Identity Id="29464950-087c-4fb6-9fdd-bab0fb71d68f" Version="1.0.9999" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Registry Explorer</DisplayName>
         <Description xml:space="preserve">Provides a tool window that shows the Visual Studio registry hive. This is useful for developers writing extensions for Visual Studio. Requires Visual Studio 2017.6</Description>
         <MoreInfo>https://github.com/madskristensen/RegistryExplorer</MoreInfo>

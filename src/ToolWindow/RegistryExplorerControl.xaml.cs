@@ -95,6 +95,8 @@ namespace RegistryExplorer.ToolWindow
                     item.IsSelected = true;
                 }
             }
+
+            Focus();
         }
     }
 }
