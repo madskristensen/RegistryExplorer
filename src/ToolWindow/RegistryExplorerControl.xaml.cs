@@ -36,6 +36,8 @@ namespace RegistryExplorer.ToolWindow
         private async Task UpdateDetailsGridAsync(RegistryTreeItem item)
         {
             values.Items.Clear();
+
+            // Wait a bit in case the user moved to a different tree node quickly
             await Task.Delay(200);
 
             // Another tree node was selected in the meantime.
