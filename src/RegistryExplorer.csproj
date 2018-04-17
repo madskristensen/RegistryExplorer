@@ -66,6 +66,7 @@
     <Compile Include="ToolWindow\RegistryExplorerWindow.cs" />
     <Compile Include="ToolWindow\RegistryTreeItem.cs" />
     <Compile Include="Commands\ShowRegistryExplorer.cs" />
+    <Compile Include="ToolWindow\VsTheme.cs" />
     <Compile Include="VSCommandTable.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

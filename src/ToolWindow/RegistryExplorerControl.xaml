@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:RegistryExplorer.ToolWindow"
              xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
              mc:Ignorable="d" 
+             local:VsTheme.UseVsTheme="true"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,7 +15,7 @@
             <ColumnDefinition Width="50*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TreeView Name="tree" Grid.Column="0" Margin="0" BorderThickness="0" Background="{DynamicResource {x:Static platformUI:EnvironmentColors.BrandedUIBackgroundBrushKey}}">
+        <TreeView Name="tree" Grid.Column="0" Margin="0" BorderThickness="0">
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="KeyboardNavigation.AcceptsReturn" Value="True" />
@@ -36,7 +37,7 @@
             </TreeView.ItemContainerStyle>
         </TreeView>
 
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" Background="{DynamicResource {x:Static platformUI:EnvironmentColors.BrandedUIBackgroundBrushKey}}" />
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
         <DataGrid Name="values" Grid.Column="2" AutoGenerateColumns="false" Background="{DynamicResource {x:Static platformUI:EnvironmentColors.BrandedUIBackgroundBrushKey}}" BorderThickness="0" Margin="0" SelectionUnit="Cell" CanUserReorderColumns="False" AlternatingRowBackground="#FFEDEDED" HorizontalGridLinesBrush="Transparent" VerticalGridLinesBrush="Transparent" RowHeaderWidth="0">
             <DataGrid.Columns>
