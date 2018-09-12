@@ -125,7 +125,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Madskristensen.VisualStudio.SDK" Version="15.6.0-beta5" />
+    <PackageReference Include="Madskristensen.VisualStudio.SDK" Version="15.6.0-beta6" />
     <PackageReference Include="Microsoft.VSSDK.BuildTools">
       <Version>15.8.3247</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
