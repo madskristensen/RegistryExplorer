@@ -14,10 +14,10 @@ namespace RegistryExplorer
 
         public RegistryExplorerWindow(RegistryKey[] keys) : base()
         {
-            Caption = Title;
+            this.Caption = Title;
 
-            var elm = new RegistryExplorerControl(keys);
-            Content = elm;
+            RegistryExplorerControl elm = new RegistryExplorerControl(keys);
+            this.Content = elm;
         }
     }
 }

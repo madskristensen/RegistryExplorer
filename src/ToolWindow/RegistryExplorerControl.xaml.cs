@@ -13,35 +13,35 @@ namespace RegistryExplorer.ToolWindow
 
         public RegistryExplorerControl(RegistryKey[] keys)
         {
-            _keys = keys;
-            Loaded += OnLoaded;
-            RegistryTreeItem.ItemSelected += OnItemSelected;
-            InitializeComponent();
+            this._keys = keys;
+            Loaded += this.OnLoaded;
+            RegistryTreeItem.ItemSelected += this.OnItemSelected;
+            this.InitializeComponent();
         }
 
         private void Refresh_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (tree.SelectedItem is RegistryTreeItem selected)
+            if (this.tree.SelectedItem is RegistryTreeItem selected)
             {
                 selected.Refresh(selected);
-                UpdateDetailsGridAsync(selected).ConfigureAwait(false);
+                this.UpdateDetailsGridAsync(selected).ConfigureAwait(false);
             }
         }
 
         private void OnItemSelected(object sender, RegistryTreeItem e)
         {
-            UpdateDetailsGridAsync(e).ConfigureAwait(false);
+            this.UpdateDetailsGridAsync(e).ConfigureAwait(false);
         }
 
         private async Task UpdateDetailsGridAsync(RegistryTreeItem item)
         {
-            values.Items.Clear();
+            this.values.Items.Clear();
 
             // Wait a bit in case the user moved to a different tree node quickly
             await Task.Delay(200);
 
             // Another tree node was selected in the meantime.
-            if (item != tree.SelectedItem)
+            if (item != this.tree.SelectedItem)
             {
                 return;
             }
@@ -50,7 +50,7 @@ namespace RegistryExplorer.ToolWindow
             {
                 IOrderedEnumerable<string> names = item.Key.GetValueNames().OrderBy(x => x);
 
-                using (Dispatcher.DisableProcessing())
+                using (this.Dispatcher.DisableProcessing())
                 {
                     foreach (string name in names)
                     {
@@ -72,33 +72,33 @@ namespace RegistryExplorer.ToolWindow
 
                         string displayName = string.IsNullOrEmpty(name) ? "(Default)" : name;
 
-                        values.Items.Add(new { Name = displayName, Type = type, Value = value });
+                        this.values.Items.Add(new { Name = displayName, Type = type, Value = value });
                     }
                 }
             }
             else
             {
-                values.Items.Add(_defaultValue);
+                this.values.Items.Add(this._defaultValue);
             }
         }
 
         private void OnLoaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            tree.Items.Clear();
+            this.tree.Items.Clear();
 
-            foreach (RegistryKey key in _keys)
+            foreach (RegistryKey key in this._keys)
             {
-                var item = new RegistryTreeItem(key, true);
+                RegistryTreeItem item = new RegistryTreeItem(key, true);
 
-                tree.Items.Add(item);
+                this.tree.Items.Add(item);
 
-                if (tree.SelectedItem == null)
+                if (this.tree.SelectedItem == null)
                 {
                     item.IsSelected = true;
                 }
             }
 
-            Focus();
+            this.Focus();
         }
     }
 }

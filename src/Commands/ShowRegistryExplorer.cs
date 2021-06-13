@@ -13,11 +13,11 @@ namespace RegistryExplorer
     {
         public static async Task InitializeAsync(AsyncPackage package)
         {
-            var commandService = (IMenuCommandService)await package.GetServiceAsync(typeof(IMenuCommandService));
+            IMenuCommandService commandService = (IMenuCommandService)await package.GetServiceAsync(typeof(IMenuCommandService));
             Assumes.Present(commandService);
 
-            var menuCommandID = new CommandID(PackageGuids.guidRegistryEplorerPackageCmdSet, PackageIds.ShowRegistryExplorerId);
-            var menuItem = new MenuCommand((sender, e) => Execute(package, sender, e), menuCommandID);
+            CommandID menuCommandID = new CommandID(PackageGuids.guidRegistryEplorerPackageCmdSet, PackageIds.ShowRegistryExplorerId);
+            MenuCommand menuItem = new MenuCommand((sender, e) => Execute(package, sender, e), menuCommandID);
             commandService.AddCommand(menuItem);
         }
 
