@@ -40,13 +40,13 @@
                                         </Style>
                                     </MenuItem.Style>
                                 </MenuItem>
-								<MenuItem Header="Search key">
-									<MenuItem.Style>
-										<Style TargetType="MenuItem">
-											<EventSetter Event="Click" Handler="Search_Click"/>
-										</Style>
-									</MenuItem.Style>
-								</MenuItem>
+                                <MenuItem Header="Search key">
+                                    <MenuItem.Style>
+                                        <Style TargetType="MenuItem">
+                                            <EventSetter Event="Click" Handler="Search_Click"/>
+                                        </Style>
+                                    </MenuItem.Style>
+                                </MenuItem>
                                 <MenuItem Header="Export key" Visibility="Collapsed">
                                     <!-- Just an idea for later... -->
                                     <MenuItem.Style>
