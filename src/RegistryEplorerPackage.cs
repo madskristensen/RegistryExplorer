@@ -18,7 +18,7 @@ namespace RegistryExplorer
     {
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await ShowRegistryExplorer.InitializeAsync(this);
         }
 
@@ -44,7 +44,7 @@ namespace RegistryExplorer
 
         protected override Task<object> InitializeToolWindowAsync(Type toolWindowType, int id, CancellationToken cancellationToken)
         {
-            RegistryKey[] keys = new[] { UserRegistryRoot, ApplicationRegistryRoot };
+            RegistryKey[] keys = new[] { this.UserRegistryRoot, this.ApplicationRegistryRoot };
             return Task.FromResult<object>(keys);
         }
     }

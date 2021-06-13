@@ -45,12 +45,12 @@ namespace RegistryExplorer.ToolWindow
 
         private static ResourceDictionary BuildThemeResources()
         {
-            var allResources = new ResourceDictionary();
+            ResourceDictionary allResources = new ResourceDictionary();
 
             try
             {
-                var shellResources = (ResourceDictionary)Application.LoadComponent(new Uri("Microsoft.VisualStudio.Platform.WindowManagement;component/Themes/ThemedDialogDefaultStyles.xaml", UriKind.Relative));
-                var scrollStyleContainer = (ResourceDictionary)Application.LoadComponent(new Uri("Microsoft.VisualStudio.Shell.UI.Internal;component/Styles/ScrollBarStyle.xaml", UriKind.Relative));
+                ResourceDictionary shellResources = (ResourceDictionary)Application.LoadComponent(new Uri("Microsoft.VisualStudio.Platform.WindowManagement;component/Themes/ThemedDialogDefaultStyles.xaml", UriKind.Relative));
+                ResourceDictionary scrollStyleContainer = (ResourceDictionary)Application.LoadComponent(new Uri("Microsoft.VisualStudio.Shell.UI.Internal;component/Styles/ScrollBarStyle.xaml", UriKind.Relative));
                 allResources.MergedDictionaries.Add(shellResources);
                 allResources.MergedDictionaries.Add(scrollStyleContainer);
                 allResources[typeof(ScrollViewer)] = new Style
@@ -95,7 +95,7 @@ namespace RegistryExplorer.ToolWindow
             }
             else if (control.Resources != ThemeResources)
             {
-                var d = new ResourceDictionary();
+                ResourceDictionary d = new ResourceDictionary();
                 d.MergedDictionaries.Add(ThemeResources);
                 d.MergedDictionaries.Add(control.Resources);
                 control.Resources = null;

@@ -1,21 +1,31 @@
-﻿<UserControl x:Class="RegistryExplorer.ToolWindow.RegistryExplorerControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:RegistryExplorer.ToolWindow"
-             xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
-             mc:Ignorable="d" 
-             local:VsTheme.UseVsTheme="true"
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:RegistryExplorer.ToolWindow"
+    xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+    
+    x:Class="RegistryExplorer.ToolWindow.RegistryExplorerControl"
+    
+    mc:Ignorable="d" 
+    local:VsTheme.UseVsTheme="true"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:Name="selfControl"
+>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"></ColumnDefinition>
-            <ColumnDefinition Width="5"></ColumnDefinition>
-            <ColumnDefinition Width="50*"></ColumnDefinition>
+            <!--<ColumnDefinition Width="50*"/>-->
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <TreeView Name="tree" Grid.Column="0" Margin="0" BorderThickness="0">
+        <TreeView Name="tree" Grid.Column="0" Grid.RowSpan="2" Margin="0" BorderThickness="0">
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="KeyboardNavigation.AcceptsReturn" Value="True" />
@@ -30,6 +40,21 @@
                                         </Style>
                                     </MenuItem.Style>
                                 </MenuItem>
+                                <MenuItem Header="Search key">
+                                    <MenuItem.Style>
+                                        <Style TargetType="MenuItem">
+                                            <EventSetter Event="Click" Handler="Search_Click"/>
+                                        </Style>
+                                    </MenuItem.Style>
+                                </MenuItem>
+                                <MenuItem Header="Export key" Visibility="Collapsed">
+                                    <!-- Just an idea for later... -->
+                                    <MenuItem.Style>
+                                        <Style TargetType="MenuItem">
+                                            <EventSetter Event="Click" Handler="Search_Click"/>
+                                        </Style>
+                                    </MenuItem.Style>
+                                </MenuItem>
                             </ContextMenu>
                         </Setter.Value>
                     </Setter>
@@ -37,15 +62,109 @@
             </TreeView.ItemContainerStyle>
         </TreeView>
 
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+        <GridSplitter Grid.Column="1" Grid.RowSpan="2" Width="5" HorizontalAlignment="Stretch" />
 
-        <DataGrid Name="values" Grid.Column="2" AutoGenerateColumns="false" Background="{DynamicResource {x:Static platformUI:EnvironmentColors.BrandedUIBackgroundBrushKey}}" BorderThickness="0" Margin="0" SelectionUnit="Cell" CanUserReorderColumns="False" AlternatingRowBackground="#FFEDEDED" HorizontalGridLinesBrush="Transparent" VerticalGridLinesBrush="Transparent" RowHeaderWidth="0">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Path=Name}" />
-                <DataGridTextColumn Header="Type" IsReadOnly="True"  Binding="{Binding Path=Type}" />
-                <DataGridTextColumn Header="Value" IsReadOnly="True"  Binding="{Binding Path=Value}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <!-- Row 0: currentKeyPath -->
+                <RowDefinition Height="Auto"/>
+                <!-- Row 1: Search controls -->
+                <RowDefinition Height="Auto"/>
+                <!-- Row 2: `values` <DataGrid> -->
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" x:Name="currentKeyPath" Margin="7,3" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Search" Margin="7,3" />
+
+                <TextBox Grid.Column="1" VerticalAlignment="Center" x:Name="searchTerms" KeyDown="searchTerms_KeyDown" />
+
+                <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
+
+                    <Border VerticalAlignment="Center" BorderThickness="1" BorderBrush="{DynamicResource {x:Static platformUI:EnvironmentColors.PanelSubGroupSeparatorBrushKey}}" CornerRadius="3" Margin="3,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <CheckBox Content="Case sensitive" Margin="3" VerticalAlignment="Center" x:Name="searchCaseSensitive" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border VerticalAlignment="Center" BorderThickness="1" BorderBrush="{DynamicResource {x:Static platformUI:EnvironmentColors.PanelSubGroupSeparatorBrushKey}}" CornerRadius="3" Margin="3,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <RadioButton Content="AND"         Margin="3" VerticalAlignment="Center" GroupName="SearchOp" x:Name="searchOpAnd" IsChecked="True"  />
+                            <RadioButton Content="OR"          Margin="3" VerticalAlignment="Center" GroupName="SearchOp" x:Name="searchOpOr" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border VerticalAlignment="Center" BorderThickness="1" BorderBrush="{DynamicResource {x:Static platformUI:EnvironmentColors.PanelSubGroupSeparatorBrushKey}}" CornerRadius="3" Margin="3,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <RadioButton Content="All keys"    Margin="3" VerticalAlignment="Center" GroupName="SearchScope" x:Name="searchAllRad" IsChecked="True"  />
+                            <RadioButton Content="Current key" Margin="3" VerticalAlignment="Center" GroupName="SearchScope" x:Name="searchCurrentRad" />
+                        </StackPanel>
+                    </Border>
+
+                    <Button      Content="Search"      Margin="3" VerticalAlignment="Center" Click="StartSearch_Click" />
+                    <Button      Content="Close"       Margin="3" VerticalAlignment="Center" Click="CloseSearch_Click" Visibility="Collapsed" />
+                </StackPanel>
+
+            </Grid>
+
+            <DataGrid
+                Name="values"
+                Grid.Column="2"
+                Grid.Row="2"
+            
+                AutoGenerateColumns="false"
+                Background="{DynamicResource {x:Static platformUI:EnvironmentColors.BrandedUIBackgroundBrushKey}}"
+                BorderThickness="0"
+                Margin="0"
+                SelectionUnit="Cell"
+                CanUserReorderColumns="False"
+                AlternatingRowBackground="#FFEDEDED"
+                HorizontalGridLinesBrush="Transparent"
+                VerticalGridLinesBrush="Transparent"
+                HeadersVisibility="Column"
+            >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name"   IsReadOnly="True" Binding="{Binding Path=Name}"   />
+                    <DataGridTextColumn Header="Length" IsReadOnly="True" Binding="{Binding Path=Length}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Type"   IsReadOnly="True" Binding="{Binding Path=Type}"   />
+                    <DataGridTextColumn Header="Value"  IsReadOnly="True" Binding="{Binding Path=Value}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+                <DataGrid.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <ItemContainerTemplate>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="3" Cursor="Hand">
+                                    <TextBlock.InputBindings>
+                                        <MouseBinding Command="{Binding GoToRegistryKeyCommand, ElementName=selfControl}" CommandParameter="{Binding Name}" MouseAction="LeftClick" />
+                                    </TextBlock.InputBindings>
+                                </TextBlock>
+                            </ItemContainerTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </DataGrid.GroupStyle>
+            </DataGrid>
+
+        </Grid>
 
     </Grid>
 </UserControl>
