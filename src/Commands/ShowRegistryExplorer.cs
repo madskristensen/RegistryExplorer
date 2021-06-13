@@ -26,9 +26,9 @@ namespace RegistryExplorer
             package.JoinableTaskFactory.RunAsync(async () =>
             {
                 ToolWindowPane window = await package.ShowToolWindowAsync(
-                    typeof(RegistryExplorerWindow),
-                    0,
-                    create: true,
+                    toolWindowType   : typeof(RegistryExplorerWindow),
+                    id               : 0,
+                    create           : true,
                     cancellationToken: package.DisposalToken);
             });
         }
